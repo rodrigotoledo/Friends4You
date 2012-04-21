@@ -1,0 +1,12 @@
+<%=form_tag send3friends_friend_path(friend)%>
+<h2>Que legal que você está visitando este amigo(a)</h2>
+<p>Indique para ele os três amigos abaixo</p>
+<ul>
+  <% friend.close_friends(3,current_user.id).each do |friend_indicated| %>
+  <li>
+  <%=friend_indicated.distance.round(3)%> km - <%=link_to friend_indicated.name, friend_path(friend_indicated)%>
+  <%=hidden_field_tag 'ids[]', friend_indicated.id%>
+  </li>
+  <% end %>
+</ul>
+<input type="submit" value="Enviar sugestões" />

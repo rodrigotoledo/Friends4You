@@ -1,0 +1,27 @@
+<% content_for :title do%>
+<% if current_user.visiting_anyone? %>
+Você está na casa de <%=current_user.in_house_of.name%>
+<% else %>
+Visite alguém
+<% end %>
+<% end %>
+<article class="module width_full">
+  <header><h3>Agora você está visitando...</h3></header>
+  <div class="module_content">
+    <% if current_user.visiting_anyone? %>
+    <h1><%=current_user.in_house_of.name%></h1>
+    <%=render :partial => "friends/send3friends", :locals => {:friend => current_user.in_house_of} %>
+    
+    <h1>Ou...</h1>
+    <%=link_to 'você pode voltar para sua casa', clear_visit_path%>
+    <% else %>
+    <h1>Você não está visitando ninguém... aproveite o dia e vá a casa de algum amigo</h1>
+    <p>Veja abaixo a lista de alguns amigos que estão próximos a você</p>
+    <ul>
+      <% current_user.close_friends(5).each do |friend|%>
+      <li><%=friend.distance.round(3)%> km - <%=link_to friend.name, friend_path(friend)%></li>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+</article>

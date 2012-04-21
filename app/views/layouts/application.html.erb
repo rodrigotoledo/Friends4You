@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8"/>
+	<title><%=t('global.system_name')%></title>
+	
+	<%=stylesheet_link_tag :layout %>
+	<!--[if lt IE 9]>
+	<%=stylesheet_link_tag :ie %>
+	<link rel="stylesheet" href="css/ie.css" type="text/css" media="screen" />
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<%=javascript_include_tag :application %>
+	<%= csrf_meta_tags %>
+</head>
+
+<body>
+
+	<header id="header">
+		<hgroup>
+			<h1 class="site_title"><%=link_to t('global.system_name'), root_path %></h1>
+			<h2 class="section_title"><%=yield(:title) if content_for?(:title)%></h2>
+		</hgroup>
+	</header> <!-- end of header bar -->
+	
+	<section id="secondary_bar">
+		<div class="user">
+		  <p><%=select_tag :current_user,users_options_for_current,:onchange => "window.location.href='#{change_user_path}/'+this.value" %></p>
+		</div>
+	</section><!-- end of secondary bar -->
+	
+	<aside id="sidebar" class="column">
+		<form class="quick_search">
+			<input type="text" value="Buscar amigos" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;">
+		</form>
+		<hr/>
+		<h3>Menu de ações</h3>
+		<ul class="toggle">
+		  <li class="icn_tags"><%=link_to 'Visita atual', root_path %></li>
+			<li class="icn_add_user"><%=link_to "Novo amigo", new_friend_path %></li>
+			<li class="icn_view_users"><%=link_to "Amigos", friends_path %></li>
+		</ul>
+		<footer>
+			<hr />
+			<p><strong>Copyright &copy; 2012 Rodrigo Toledo</strong></p>
+		</footer>
+	</aside><!-- end of sidebar -->
+	
+	<section id="main" class="column">
+	  <%=flash_messages%>
+		<%= yield %>
+		<div class="spacer"></div>
+	</section>
+  <script type="text/javascript">
+  $(document).ready(function(){ 
+    $(".tablesorter").tablesorter(); 
+
+    //When page loads...
+    $(".tab_content").hide(); //Hide all content
+    $("ul.tabs li:first").addClass("active").show(); //Activate first tab
+    $(".tab_content:first").show(); //Show first tab content
+
+    //On Click Event
+    $("ul.tabs li").click(function() {
+
+      $("ul.tabs li").removeClass("active"); //Remove any "active" class
+      $(this).addClass("active"); //Add "active" class to selected tab
+      $(".tab_content").hide(); //Hide all tab content
+
+      var activeTab = $(this).find("a").attr("href"); //Find the href attribute value to identify the active tab + content
+      $(activeTab).fadeIn(); //Fade in the active ID content
+      return false;
+    });
+
+  });
+
+  $(function(){
+    $('.column').equalHeight();
+  });
+  </script>
+</body>
+</html>

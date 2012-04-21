@@ -1,0 +1,27 @@
+<% content_for :title do %>
+Amigo: <%=@friend.name%>
+<% end %>
+<article class="module width_full">
+  <header><h3><%=@friend.name%></h3></header>
+  
+  <div class="module_content">
+    <% unless @friend.visiting_now%>
+    <h1><%=link_to 'Visitar este amigo', visit_friend_path(@friend)%></h1>
+    <% else %>
+      <%=render :partial => "friends/send3friends", :locals => {:friend => @friend} %>
+    <% end %>
+    <fieldset>
+    <label>Nome</label>
+    <%=@friend.email%>
+    </fieldset>
+    <fieldset>
+    <label>Latitude</label>
+    <%=@friend.latitude%>
+    </fieldset>
+    <fieldset>
+    <label>Longitude</label>
+    <%=@friend.longitude%>
+    </fieldset>
+    <div class="clear"></div>
+  </div>
+</article>
