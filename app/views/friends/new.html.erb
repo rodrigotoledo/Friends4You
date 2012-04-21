@@ -1,0 +1,43 @@
+<% content_for :title do %>
+Novo amigo
+<% end %>
+<article class="module width_full">
+  <header><h3>Preencha os campos abaixo do seu amigo</h3></header>
+  <%=form_for(@friend, :url => friends_path, :via => :post) do |f|%>
+  <div class="module_content">
+    <% if @friend.errors %>
+    <ul>
+    <% @friend.errors.full_messages.each do |message|%>
+    <li><%= message %></li>
+    <% end %>
+    </ul>
+    <% end %>
+    
+    <fieldset>
+      <%=f.label :name%>
+      <%=f.text_field :name%>
+    </fieldset>
+    
+    <fieldset>
+      <%=f.label :email%>
+      <%=f.text_field :email%>
+    </fieldset>
+    
+    <fieldset style="width:48%; float:left; margin-right: 31px;">
+      <%=f.label :latitude%>
+      <%=f.text_field :latitude, :style => "width:92%"%>
+    </fieldset>
+    
+    <fieldset style="width:48%; float:left;">
+      <%=f.label :longitude%>
+      <%=f.text_field :longitude, :style => "width:92%"%>
+    </fieldset>
+    <div class="clear"></div>
+  </div>
+  <footer>
+    <div class="submit_link">
+      <%=f.submit t('global.save'), :disable_with => t('global.saving'), :class=>"alt_btn"%>
+    </div>
+  </footer>
+  <% end %>
+</article>

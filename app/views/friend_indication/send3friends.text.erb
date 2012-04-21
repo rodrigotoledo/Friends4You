@@ -1,0 +1,7 @@
+Olá <%=@receiver_name%>
+
+<%=@indicator_name%> lhe indicou três amigos
+
+<% @indications.each do |friend|%>
+<%=friend.name%>
+<% end %>
