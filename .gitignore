@@ -39,3 +39,4 @@ frontend/log/newrelic_agent_store.db
 Gemfile.lock
 template/PSD/
 template/documentation.pdf
+coverage
