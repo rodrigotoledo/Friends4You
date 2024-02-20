@@ -11,7 +11,7 @@ Visite alguém
     <% if current_user.visiting_anyone? %>
     <h1><%=current_user.in_house_of.name%></h1>
     <%=render :partial => "friends/send3friends", :locals => {:friend => current_user.in_house_of} %>
-    
+
     <h1>Ou...</h1>
     <%=link_to 'você pode voltar para sua casa', clear_visit_path%>
     <% else %>
@@ -19,7 +19,7 @@ Visite alguém
     <p>Veja abaixo a lista de alguns amigos que estão próximos a você</p>
     <ul>
       <% current_user.close_friends(5).each do |friend|%>
-      <li><%=friend.distance.round(3)%> km - <%=link_to friend.name, friend_path(friend)%></li>
+      <li><%=friend.distance%> km - <%=link_to friend.name, friend_path(friend)%></li>
       <% end %>
     </ul>
     <% end %>
